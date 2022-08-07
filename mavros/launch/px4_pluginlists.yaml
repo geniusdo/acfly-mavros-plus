@@ -1,0 +1,93 @@
+mavros_node:
+  ros__parameters:
+      fcu_url: "/dev/ttyACM0:115200" 
+      gcs_url: "" 
+      tgt_system: 1
+      tgt_component: 1
+
+mavros:
+  ros__parameters:
+      plugin_denylist: 
+      - safety_area
+      - image_pub
+      - vibration
+      - rangefinder
+      - wheel_odometry
+      - imu
+      - param
+      - waypoint
+      - rallypoint
+      - geofence
+      - rc_io
+      - command
+      - local_position
+      - global_position
+      - setpoint_position
+      - safety_area
+      - 3dr_radio
+      - setpoint_velocity
+      - setpoint_accel
+      - setpoint_attitude
+      - setpoint_raw
+      - setpoint_trajectory
+      - vfr_hud
+      - ftp
+      - sys_time
+      - actuator_control
+      - manual_control
+      - altitude
+      - hil
+      - home_position
+      - wind_estimation
+      - acfly_position_sensor
+      - distance_sensor
+      - rangefinder
+      - adsb
+      - cam_imu_sync
+      - companion_process_status
+      - onboard_computer_status
+      - debug_value
+      - distance_sensor
+      - esc_status
+      - fake_gps
+      - gps_status
+      - gps_rtk
+      - landing_target
+      - log_transfer
+      - mocap_pose_estimate
+      - obstacle_distance
+      - odom
+      - play_tune
+      - px4flow
+      - rangefinder
+      - trajectory
+      - wheel_odometry
+      - vibration
+      - vision_pose_estimate
+      - vision_speed_estimate
+      - mount_control
+      - vision_pose
+      - vision_speed
+      - tunnel
+      - wheel_odometry
+      - odometry
+      
+      plugin_allowlist:
+      - 'sys_*'
+      - command
+      
+      fcu_protocol: "v2.0"
+
+  
+
+/mavros/sys:
+  ros__parameters:
+    conn_timeout: 10.0
+    #min_voltage: 10.0
+    disable_diag: false
+    heartbeat_rate: 1.0
+    heartbeat_mav_type: ONBOARD_CONTROLLER
+
+
+ 
+

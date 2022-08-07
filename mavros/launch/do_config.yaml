@@ -1,0 +1,8 @@
+/mavros/sys:
+   ros__parameters:
+      conn_timeout: 10.0
+      heartbeat_rate: 1.0
+      min_voltage: 10.0
+      disable_diag: false
+
+
