@@ -75,6 +75,7 @@ mavros:
       plugin_allowlist:
       - 'sys_*'
       - command
+      - imu
       
       fcu_protocol: "v2.0"
 

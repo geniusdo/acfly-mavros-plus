@@ -112,6 +112,8 @@ set(srv_files
   srv/CommandTriggerInterval.srv
   srv/CommandVtolTransition.srv
   srv/CommandSetMode.srv
+  srv/CommandTakeoffLocal.srv
+  srv/CommandLandLocal.srv
   srv/EndpointAdd.srv
   srv/EndpointDel.srv
   srv/FileChecksum.srv
