@@ -64,6 +64,16 @@ void Data::init_geographiclib() {
   }
 }
 
+void Data::update_pos_sensor_connection_status(uint32_t &flags) {
+    s_unique_lock lock(mu);
+    if (flags != pos_sensor_connection_status)
+        pos_sensor_connection_status = flags;
+}
+
+bool Data::get_pos_sensor_connection_status(int &index){
+    s_unique_lock lock(mu);
+    return pos_sensor_connection_status & (1 << index);
+}
 /* -*- IMU data -*- */
 
 void Data::update_attitude_imu_enu(const sensor_msgs::msg::Imu &imu) {

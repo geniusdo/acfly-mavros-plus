@@ -40,7 +40,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/nav_sat_fix.hpp"
-
+#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "mavros/frame_tf.hpp"
 #include "mavros/plugin.hpp"
 #include "mavros/uas_executor.hpp"
@@ -78,6 +78,13 @@ public:
 
   Data();
   ~Data() = default;
+
+
+  /* Position sensor data */
+
+  void update_pos_sensor_connection_status(uint32_t &flags);
+
+  bool get_pos_sensor_connection_status(int &index);
 
   /* -*- IMU data -*- */
 
@@ -188,6 +195,7 @@ public:
 private:
   std::shared_timed_mutex mu;
 
+  uint32_t pos_sensor_connection_status;
   sensor_msgs::msg::Imu imu_enu_data;
   sensor_msgs::msg::Imu imu_ned_data;
 
@@ -564,6 +572,7 @@ private:
 
   std::atomic<uint64_t> time_offset;
   timesync_mode tsync_mode;
+
 
   // UAS -> Router connection
   mavlink::mavlink_status_t mavlink_status;
