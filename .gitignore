@@ -3,8 +3,8 @@
 *.pyc
 core
 .vscode/
-build
-./log
+build/
+log/
 
 # generated
 libmavconn/include/mavconn/mavlink_dialect.hpp
