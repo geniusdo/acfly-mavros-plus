@@ -4,7 +4,8 @@
 core
 .vscode/
 build/
-log/
+*.log
+/log:
 
 # generated
 libmavconn/include/mavconn/mavlink_dialect.hpp
