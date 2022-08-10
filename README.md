@@ -1,6 +1,8 @@
 # | 未完成  (still building) |
 
-**last updated time:** 2022.8.9  
+**last updated time:** 2022.8.10
+
+**last update log:** 优化了acfly_slam_sensor代码结构
 
 **已完成插件(done already)：**
    - sys_status

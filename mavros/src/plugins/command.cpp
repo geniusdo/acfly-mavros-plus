@@ -27,11 +27,10 @@
 #include "mavros_msgs/srv/command_bool.hpp"
 #include "mavros_msgs/srv/command_home.hpp"
 #include "mavros_msgs/srv/command_int.hpp"
+#include "mavros_msgs/srv/command_land_local.hpp"
 #include "mavros_msgs/srv/command_long.hpp"
 #include "mavros_msgs/srv/command_set_mode.hpp"
-#include "mavros_msgs/srv/command_tol.hpp"
 #include "mavros_msgs/srv/command_takeoff_local.hpp"
-#include "mavros_msgs/srv/command_land_local.hpp"
 #include "mavros_msgs/srv/command_tol.hpp"
 #include "mavros_msgs/srv/command_trigger_control.hpp"
 #include "mavros_msgs/srv/command_trigger_interval.hpp"
@@ -107,11 +106,14 @@ public:
     land_srv = node->create_service<mavros_msgs::srv::CommandTOL>(
         "~/land", std::bind(&CommandPlugin::land_cb, this, _1, _2, _3),
         rmw_qos_profile_services_default, srv_cg);
-    takeoff_local_srv = node->create_service<mavros_msgs::srv::CommandTakeoffLocal>(
-        "~/takeoff_local", std::bind(&CommandPlugin::takeoff_local_cb, this, _1, _2, _3),
-        rmw_qos_profile_services_default, srv_cg);
+    takeoff_local_srv =
+        node->create_service<mavros_msgs::srv::CommandTakeoffLocal>(
+            "~/takeoff_local",
+            std::bind(&CommandPlugin::takeoff_local_cb, this, _1, _2, _3),
+            rmw_qos_profile_services_default, srv_cg);
     land_local_srv = node->create_service<mavros_msgs::srv::CommandLandLocal>(
-        "~/land_local", std::bind(&CommandPlugin::land_local_cb, this, _1, _2, _3),
+        "~/land_local",
+        std::bind(&CommandPlugin::land_local_cb, this, _1, _2, _3),
         rmw_qos_profile_services_default, srv_cg);
     trigger_control_srv =
         node->create_service<mavros_msgs::srv::CommandTriggerControl>(
@@ -147,7 +149,8 @@ private:
   rclcpp::Service<mavros_msgs::srv::CommandSetMode>::SharedPtr set_mode_srv;
   rclcpp::Service<mavros_msgs::srv::CommandTOL>::SharedPtr takeoff_srv;
   rclcpp::Service<mavros_msgs::srv::CommandTOL>::SharedPtr land_srv;
-  rclcpp::Service<mavros_msgs::srv::CommandTakeoffLocal>::SharedPtr takeoff_local_srv;
+  rclcpp::Service<mavros_msgs::srv::CommandTakeoffLocal>::SharedPtr
+      takeoff_local_srv;
   rclcpp::Service<mavros_msgs::srv::CommandLandLocal>::SharedPtr land_local_srv;
   rclcpp::Service<mavros_msgs::srv::CommandTriggerControl>::SharedPtr
       trigger_control_srv;
@@ -275,9 +278,9 @@ private:
     const uint8_t tgt_sys_id = (broadcast) ? 0 : uas->get_tgt_system();
     const uint8_t tgt_comp_id =
         (broadcast) ? 0
-                    : (use_comp_id_system_control)
-                          ? enum_value(MAV_COMPONENT::COMP_ID_SYSTEM_CONTROL)
-                          : uas->get_tgt_component();
+        : (use_comp_id_system_control)
+            ? enum_value(MAV_COMPONENT::COMP_ID_SYSTEM_CONTROL)
+            : uas->get_tgt_component();
 
     cmd.target_system = tgt_sys_id;
     cmd.target_component = tgt_comp_id;
@@ -421,25 +424,26 @@ private:
                                req->altitude, res->success, res->result);
   }
 
-  void takeoff_local_cb(const std::shared_ptr<rmw_request_id_t> req_header
-                  [[maybe_unused]],
-                  const mavros_msgs::srv::CommandTakeoffLocal::Request::SharedPtr req,
-                  mavros_msgs::srv::CommandTakeoffLocal::Response::SharedPtr res) {
+  void takeoff_local_cb(
+      const std::shared_ptr<rmw_request_id_t> req_header [[maybe_unused]],
+      const mavros_msgs::srv::CommandTakeoffLocal::Request::SharedPtr req,
+      mavros_msgs::srv::CommandTakeoffLocal::Response::SharedPtr res) {
     using mavlink::common::MAV_CMD;
     send_command_long_and_wait(false, enum_value(MAV_CMD::NAV_TAKEOFF_LOCAL), 1,
-                               req->pitch, 0, req->ascend_rate, req->yaw, req->x,
-                               req->y, req->z, res->success,
+                               req->pitch, 0, req->ascend_rate, req->yaw,
+                               req->x, req->y, req->z, res->success,
                                res->result);
   }
 
-  void land_local_cb(const std::shared_ptr<rmw_request_id_t> req_header
-               [[maybe_unused]],
-               const mavros_msgs::srv::CommandLandLocal::Request::SharedPtr req,
-               mavros_msgs::srv::CommandLandLocal::Response::SharedPtr res) {
+  void land_local_cb(
+      const std::shared_ptr<rmw_request_id_t> req_header [[maybe_unused]],
+      const mavros_msgs::srv::CommandLandLocal::Request::SharedPtr req,
+      mavros_msgs::srv::CommandLandLocal::Response::SharedPtr res) {
     using mavlink::common::MAV_CMD;
-    send_command_long_and_wait(false, enum_value(MAV_CMD::NAV_LAND), 1, req->target, req->offset, req->descend_rate,
-                               req->yaw, req->x, req->y,
-                               req->z, res->success, res->result);
+    send_command_long_and_wait(false, enum_value(MAV_CMD::NAV_LAND), 1,
+                               req->target, req->offset, req->descend_rate,
+                               req->yaw, req->x, req->y, req->z, res->success,
+                               res->result);
   }
 
   void trigger_control_cb(

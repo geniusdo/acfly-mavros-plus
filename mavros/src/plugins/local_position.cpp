@@ -47,7 +47,7 @@ using namespace std::placeholders; // NOLINT
 class LocalPositionPlugin : public plugin::Plugin {
 public:
   explicit LocalPositionPlugin(plugin::UASPtr uas_)
-      : Plugin(uas_, "local_position"), tf_send(false),
+      : Plugin(uas_, "local_position"), tf_send(true),
         has_local_position_ned(false), has_local_position_ned_cov(false) {
     enable_node_watch_parameters();
 
@@ -60,7 +60,7 @@ public:
     // Important tf subsection
     // Report the transform from world to base_link here.
     node_declare_and_watch_parameter(
-        "tf.send", false,
+        "tf.send", true,
         [&](const rclcpp::Parameter &p) { tf_send = p.as_bool(); });
     node_declare_and_watch_parameter(
         "tf.frame_id", "map",
@@ -121,6 +121,9 @@ private:
   void publish_tf(nav_msgs::msg::Odometry &odom) {
     if (tf_send) {
       geometry_msgs::msg::TransformStamped transform;
+      // Eigen::Quaterniond              q, q_inv;
+      // tf2::quaternionMsgToEigen(odom->pose.pose.orientation, q);
+      // q_inv               = q.inverse();
       transform.header.stamp = odom.header.stamp;
       transform.header.frame_id = tf_frame_id;
       transform.child_frame_id = tf_child_frame_id;
@@ -128,6 +131,7 @@ private:
       transform.transform.translation.y = odom.pose.pose.position.y;
       transform.transform.translation.z = odom.pose.pose.position.z;
       transform.transform.rotation = odom.pose.pose.orientation;
+      // tf2::quaternionEigenToMsg(q_inv, transform.transform.rotation);
       uas->tf2_broadcaster.sendTransform(transform);
     }
   }
@@ -172,6 +176,8 @@ private:
     pose.header = odom.header;
     pose.pose = odom.pose.pose;
     local_position->publish(pose);
+
+    // uas->update_local_position(pose);
 
     // publish velocity always
     // velocity in the body frame

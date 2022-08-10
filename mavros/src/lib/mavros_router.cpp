@@ -311,7 +311,7 @@ void Router::periodic_clear_stale_remote_addrs() {
 }
 
 void Router::diag_run(diagnostic_updater::DiagnosticStatusWrapper &stat) {
-  auto endpoints_len = [this]() -> auto {
+  auto endpoints_len = [this]() -> auto{
     shared_lock lock(this->mu);
     return this->endpoints.size();
   }

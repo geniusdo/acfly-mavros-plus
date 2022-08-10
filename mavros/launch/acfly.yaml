@@ -5,6 +5,20 @@ mavros_node:
       tgt_system: 1
       tgt_component: 1
 
+/mavros/local_position:
+  ros__parameters:
+    tf.send: true
+    tf.frame_id: map
+    tf.child_frame_id: base_link
+
+/mavros/sys:
+  ros__parameters:
+    conn_timeout: 10.0
+    #min_voltage: 10.0
+    disable_diag: false
+    heartbeat_rate: 1.0
+    heartbeat_mav_type: ONBOARD_CONTROLLER
+    
 mavros:
   ros__parameters:
       plugin_denylist: 
@@ -12,7 +26,7 @@ mavros:
       - image_pub
       - vibration
       - rangefinder
-      - wheel_odometry
+      - wheel_odomotry
       - imu
       - param
       - waypoint
@@ -31,6 +45,7 @@ mavros:
       - setpoint_raw
       - setpoint_trajectory
       - vfr_hud
+      - cellular_status
       - ftp
       - sys_time
       - actuator_control
@@ -52,16 +67,20 @@ mavros:
       - fake_gps
       - gps_status
       - gps_rtk
+      - gps_input
+      - esc_telemetry
       - landing_target
       - log_transfer
+      - camera
       - mocap_pose_estimate
       - obstacle_distance
       - odom
       - play_tune
       - px4flow
+      - nav_controller_output
+      - mag_calibration_status
       - rangefinder
       - trajectory
-      - wheel_odometry
       - vibration
       - vision_pose_estimate
       - vision_speed_estimate
@@ -69,8 +88,9 @@ mavros:
       - vision_pose
       - vision_speed
       - tunnel
-      - wheel_odometry
       - odometry
+      - terrain
+      - tdr_radio
       
       plugin_allowlist:
       - 'sys_*'
@@ -79,16 +99,6 @@ mavros:
       - local_position
       
       fcu_protocol: "v2.0"
-
-  
-
-/mavros/sys:
-  ros__parameters:
-    conn_timeout: 10.0
-    #min_voltage: 10.0
-    disable_diag: false
-    heartbeat_rate: 1.0
-    heartbeat_mav_type: ONBOARD_CONTROLLER
 
 
  

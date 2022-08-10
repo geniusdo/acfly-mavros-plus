@@ -65,14 +65,14 @@ void Data::init_geographiclib() {
 }
 
 void Data::update_pos_sensor_connection_status(uint32_t &flags) {
-    s_unique_lock lock(mu);
-    if (flags != pos_sensor_connection_status)
-        pos_sensor_connection_status = flags;
+  s_unique_lock lock(mu);
+  if (flags != pos_sensor_connection_status)
+    pos_sensor_connection_status = flags;
 }
 
-bool Data::get_pos_sensor_connection_status(int &index){
-    s_unique_lock lock(mu);
-    return pos_sensor_connection_status & (1 << index);
+bool Data::get_pos_sensor_connection_status(int &index) {
+  s_unique_lock lock(mu);
+  return pos_sensor_connection_status & (1 << index);
 }
 /* -*- IMU data -*- */
 

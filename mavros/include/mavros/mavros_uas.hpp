@@ -35,16 +35,16 @@
 
 #include "GeographicLib/Geoid.hpp"
 #include "diagnostic_updater/diagnostic_updater.hpp"
-#include "mavconn/interface.hpp"
-#include "pluginlib/class_loader.hpp"
-#include "rclcpp/rclcpp.hpp"
-#include "sensor_msgs/msg/imu.hpp"
-#include "sensor_msgs/msg/nav_sat_fix.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
+#include "mavconn/interface.hpp"
 #include "mavros/frame_tf.hpp"
 #include "mavros/plugin.hpp"
 #include "mavros/uas_executor.hpp"
 #include "mavros/utils.hpp"
+#include "pluginlib/class_loader.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/imu.hpp"
+#include "sensor_msgs/msg/nav_sat_fix.hpp"
 
 namespace mavros {
 namespace uas {
@@ -78,7 +78,6 @@ public:
 
   Data();
   ~Data() = default;
-
 
   /* Position sensor data */
 
@@ -572,7 +571,6 @@ private:
 
   std::atomic<uint64_t> time_offset;
   timesync_mode tsync_mode;
-
 
   // UAS -> Router connection
   mavlink::mavlink_status_t mavlink_status;

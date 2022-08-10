@@ -105,12 +105,10 @@ void MAVConnInterface::parse_buffer(const char *pfx, uint8_t *buf,
 
 void MAVConnInterface::log_recv(const char *pfx, mavlink_message_t &msg,
                                 Framing framing) {
-  const char *framing_str =
-      (framing == Framing::ok)
-          ? "OK"
-          : (framing == Framing::bad_crc)
-                ? "!CRC"
-                : (framing == Framing::bad_signature) ? "!SIG" : "ERR";
+  const char *framing_str = (framing == Framing::ok)              ? "OK"
+                            : (framing == Framing::bad_crc)       ? "!CRC"
+                            : (framing == Framing::bad_signature) ? "!SIG"
+                                                                  : "ERR";
 
   const char *proto_version_str = (msg.magic == MAVLINK_STX) ? "v2.0" : "v1.0";
 

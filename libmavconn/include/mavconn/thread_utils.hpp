@@ -56,7 +56,7 @@ std::string format(const std::string &fmt, Args... args) {
  * @todo add for other posix system
  */
 template <typename... Args>
-bool set_this_thread_name(const std::string &name, Args &&... args) {
+bool set_this_thread_name(const std::string &name, Args &&...args) {
   auto new_name = format(name, std::forward<Args>(args)...);
 
 #ifdef __APPLE__
